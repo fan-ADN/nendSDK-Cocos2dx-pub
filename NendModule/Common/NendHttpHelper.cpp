@@ -7,7 +7,6 @@
 
 #include <stdio.h>
 #include "NendHttpHelper.h"
-#include "network/HttpClient.h"
 #include "NendNativeAdLog.h"
 
 USING_NS_CC;
@@ -34,25 +33,32 @@ NendHttpHelper::~NendHttpHelper()
     NendNativeAdLog::logDebug(__FUNCTION__);
 }
 
-void NendHttpHelper::setCallback(const std::function<void (HttpResponse *)> &callback)
+void NendHttpHelper::setCallback(const std::function<void (HttpResponse *, NendHttpHelper*)> &callback)
 {
     m_callback = callback;
 }
 
+void NendHttpHelper::cancelCallback()
+{
+    if (m_request) {
+        m_request->setResponseCallback(nullptr);
+    }
+}
+
 void NendHttpHelper::sendGetRequest(std::string url, std::string tag) {
-    auto request = new HttpRequest();
-    request->setUrl(url.c_str());
-    request->setTag(tag.c_str());
-    request->setRequestType(HttpRequest::Type::GET);
-    request->setResponseCallback([=](HttpClient* client, HttpResponse* response){
+    m_request = new HttpRequest();
+    m_request->setUrl(url.c_str());
+    m_request->setTag(tag.c_str());
+    m_request->setRequestType(HttpRequest::Type::GET);
+    m_request->setResponseCallback([=](HttpClient* client, HttpResponse* response){
         if (m_callback) {
-            m_callback(response);
+            m_callback(response, this);
         }
     });
     auto client = HttpClient::getInstance();
     client->setTimeoutForConnect(30);
     client->setTimeoutForRead(60);
-    client->send(request);
-    request->release();
+    client->send(m_request);
+    m_request->release();
 }
 

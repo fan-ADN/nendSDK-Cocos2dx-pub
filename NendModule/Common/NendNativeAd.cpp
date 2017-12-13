@@ -12,10 +12,14 @@
 
 #include "network/HttpClient.h"
 
+#include <string>
+#include <iostream>
+
 using namespace nend_module;
 using namespace nend_module::internal;
 
 std::vector<EventListenerTouchOneByOne *> touchListeners;
+std::vector<NendHttpHelper *> httpHelpers;
 
 NendNativeAd::~NendNativeAd()
 {
@@ -25,10 +29,20 @@ NendNativeAd::~NendNativeAd()
         Director::getInstance()->getEventDispatcher()->removeEventListener(*it);
     }
     touchListeners.clear();
+    httpHelpers.clear();
     NendNativeImpressionTracker::getInstance()->removeTrackingNode(this);
 }
 
 #pragma mark - Internal
+std::string createCacheImageFileName(const std::string imageUrl) {
+    auto positionOfLastPath = imageUrl.find_last_of("/");
+    auto startPositionOfFileName = positionOfLastPath + 1;
+    auto fileName = imageUrl.substr(startPositionOfFileName);
+    auto positionOfExtension = fileName.find_last_of(".");
+    std::string keyName = imageUrl.substr(startPositionOfFileName, positionOfExtension);
+    return keyName;
+}
+
 void NendNativeAd::downloadImageData(const std::string imageUrl, const std::function<void(Texture2D *texture, std::string errorMessage)> &callback)
 {
     if (nullptr == callback) {
@@ -39,9 +53,11 @@ void NendNativeAd::downloadImageData(const std::string imageUrl, const std::func
         callback(nullptr, "there is no image.");
         return;
     }
-    this->retain();
-    NendHttpHelper *helper = new NendHttpHelper();
-    helper->setCallback([=](HttpResponse *response) {
+
+    CC_SAFE_RETAIN(this);
+    NendHttpHelper* helper = new NendHttpHelper();
+    httpHelpers.push_back(helper);
+    helper->setCallback([=](HttpResponse *response, NendHttpHelper *httpHelper) {
         const char *responseTag = response->getHttpRequest()->getTag();
         std::string responseTagString = std::string(responseTag);
 
@@ -49,19 +65,18 @@ void NendNativeAd::downloadImageData(const std::string imageUrl, const std::func
             std::vector<char> *buffer = response->getResponseData();
             auto *img = new Image();
             img->initWithImageData(reinterpret_cast<unsigned char *>(&(buffer->front())), buffer->size());
-            auto *texture = new Texture2D();
-            texture->initWithImage(img);
+
+            auto texture = Director::getInstance()->getTextureCache()->addImage(img, createCacheImageFileName(imageUrl));
+            
             callback(texture, "");
-            img->release();
-            texture->release();
+            CC_SAFE_RELEASE(img);
             NendNativeAdLog::logDebug(StringUtils::format("%s image download was successful. response code:%ld", response->getHttpRequest()->getTag(), response->getResponseCode()));
 
         } else {
             callback(nullptr, response->getErrorBuffer());
             NendNativeAdLog::logError(StringUtils::format("Failed to download %s image. response code:%ld, error:%s", response->getHttpRequest()->getTag(), response->getResponseCode(), response->getErrorBuffer()));
         }
-        delete helper;
-        CC_SAFE_RELEASE(this);
+        this->deleteNendHttpHelper(httpHelper);
     });
     helper->sendGetRequest(imageUrl, "");
 }
@@ -147,6 +162,7 @@ void NendNativeAd::registerEventListener(EventListenerTouchOneByOne *eventListen
     Director::getInstance()->getEventDispatcher()->removeEventListenersForTarget(container, false);
     Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(eventListener, container);
     touchListeners.push_back(eventListener);
+    CC_SAFE_RELEASE(eventListener);
 }
 
 #pragma mark - tryClickAd
@@ -187,11 +203,43 @@ void NendNativeAd::tryClickPR(Touch *touch, Label *prLabel)
 #pragma mark - addClickEventToAdView
 void NendNativeAd::addClickEventToAdView(EventListenerTouchOneByOne *listener, Node *container)
 {
+    CC_SAFE_RETAIN(listener);
     this->registerEventListener(listener, container, true);
 }
 
 #pragma mark - addClickEventToPrLabel
 void NendNativeAd::addClickEventToPrLabel(EventListenerTouchOneByOne *listener, Label *prLabel)
 {
+    CC_SAFE_RETAIN(listener);
     this->registerEventListener(listener, prLabel, false);
+}
+
+#pragma mark - delete NendHttpHelper
+void NendNativeAd::deleteAllNendHttpHelper()
+{
+    if (httpHelpers.size() == 0) {
+        return;
+    }
+    
+    for (auto it = httpHelpers.begin(); it != httpHelpers.end(); it++) {
+        NendHttpHelper *helper = *it;
+        helper->cancelCallback();
+        CC_SAFE_RELEASE(this);
+        delete helper;
+    }
+}
+
+void NendNativeAd::deleteNendHttpHelper(internal::NendHttpHelper *helper)
+{
+    CC_SAFE_RELEASE(this);
+    auto it = httpHelpers.begin();
+    while (it != httpHelpers.end()) {
+        if(*it == helper) {
+            it = httpHelpers.erase(it);
+            break;
+        } else {
+            it++;
+        }
+    }
+    delete helper;
 }

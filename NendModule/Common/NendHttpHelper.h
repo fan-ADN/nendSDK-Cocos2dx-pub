@@ -22,13 +22,15 @@ namespace nend_module
         class NendHttpHelper : public cocos2d::Ref
         {
         private:
-            std::function<void (HttpResponse*)> m_callback;
+            std::function<void (HttpResponse*, NendHttpHelper*)> m_callback;
+            HttpRequest* m_request;
         public:
             static NendHttpHelper* create();
             NendHttpHelper();
             ~NendHttpHelper();
             void sendGetRequest(std::string url, std::string tag);
-            void setCallback( const std::function<void (HttpResponse*)> &callback);
+            void setCallback( const std::function<void (HttpResponse*, NendHttpHelper*)> &callback);
+            void cancelCallback();
         };
     }
 }

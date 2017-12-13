@@ -53,6 +53,9 @@ namespace nend_module
         void setDidImpression(bool didImpression){m_didImpression = didImpression;}
         bool getDidImpression(){return m_didImpression;}
         
+        void deleteAllNendHttpHelper();
+        void deleteNendHttpHelper(internal::NendHttpHelper *helper);
+        
         virtual void onAdClick(){}
         virtual void onInformationClick(){}
         virtual void onImpression(){}

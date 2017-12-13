@@ -70,6 +70,10 @@ NendNativeAdClient::~NendNativeAdClient()
 
     this->disableAutoReload();
 
+    if (m_nativeAd != nullptr) {
+        m_nativeAd->deleteAllNendHttpHelper();
+    }
+
     CC_SAFE_DELETE(m_client);
 
     nativeAds.clear();
