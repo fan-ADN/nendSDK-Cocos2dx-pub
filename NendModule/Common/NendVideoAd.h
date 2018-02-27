@@ -11,6 +11,7 @@
 #include <atomic>
 
 #include "NendVideoAdMacros.h"
+#include "NendUserFeature.h"
 
 NS_NEND_BEGIN
 
@@ -41,6 +42,8 @@ public:
     void showAd();
 
     void setUserId(const std::string& userId);
+
+    void setUserFeature(NendUserFeature *userFeature);
 
     void setMediationName(const std::string& mediationName);
 

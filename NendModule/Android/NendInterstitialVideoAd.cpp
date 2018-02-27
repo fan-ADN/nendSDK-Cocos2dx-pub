@@ -135,6 +135,10 @@ void InterstitialVideoAd::setUserIdImpl(const std::string& userId) {
     VideoAdJni::setUserId(impl_->getInterstitialVideoAd(), userId);
 }
 
+void InterstitialVideoAd::setUserFeatureImpl(NendUserFeature *userFeature) {
+    VideoAdJni::setUserFeature(impl_->getInterstitialVideoAd(), userFeature->buildUserFeature());
+}
+
 void InterstitialVideoAd::setMediationNameImpl(const std::string& mediationName) {
     VideoAdJni::setMediationName(impl_->getInterstitialVideoAd(), mediationName);
 }

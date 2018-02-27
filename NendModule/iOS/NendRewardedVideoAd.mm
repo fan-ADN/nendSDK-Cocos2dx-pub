@@ -253,6 +253,10 @@ void RewardedVideoAd::setUserIdImpl(const std::string &userId) {
     impl_->getRewardedVideoAd().userId = @(userId.c_str());
 }
 
+void RewardedVideoAd::setUserFeatureImpl(NendUserFeature *userFeature) {
+    impl_->getRewardedVideoAd().userFeature = (NADUserFeature *)userFeature->getUserFeature();
+}
+
 void RewardedVideoAd::setMediationNameImpl(const std::string &mediationName) {
     impl_->getRewardedVideoAd().mediationName = @(mediationName.c_str());
 }

@@ -46,6 +46,13 @@ public:
                                            "(Lnet/nend/android/NendAdVideo;Ljava/lang/String;)V", videoAd, userId);
         }
     }
+    
+    static void setUserFeature(const jobject& videoAd, const jobject& userFeature) {
+        if (videoAd != nullptr && userFeature != nullptr) {
+            JniUtils::callStaticVoidMethod(kNendVideoAdBridgeClass, "setUserFeature",
+                                           "(Lnet/nend/android/NendAdVideo;Lnet/nend/android/NendAdUserFeature;)V", videoAd, userFeature);
+        }
+    }
 
     static void setMediationName(const jobject& videoAd, const std::string& mediationName) {
         if (videoAd != nullptr) {

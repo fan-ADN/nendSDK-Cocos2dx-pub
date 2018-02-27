@@ -135,7 +135,6 @@ void NendFullBoardAd::load() {
                 onFullBoardAdLoaded(*this);
             }
             m_Inner->setNADFullBoard(ad);
-            
         } else {
             ErrorType errorType;
             switch (error) {
@@ -150,7 +149,6 @@ void NendFullBoardAd::load() {
                     break;
                 default:
                     break;
-                    
             }
             if (onFullBoardAdFailedToLoad)
             {
@@ -162,6 +160,7 @@ void NendFullBoardAd::load() {
 
 void NendFullBoardAd::show() {
     if(m_Inner->getNADFullBoard()) {
+        m_Inner->getNADFullBoard().backgroundColor = [UIColor colorWithRed:m_backgroundColor4F.r green:m_backgroundColor4F.g blue:m_backgroundColor4F.b alpha:m_backgroundColor4F.a];
         [m_Inner->getNADFullBoard() showFromViewController:[UIApplication sharedApplication].keyWindow.rootViewController];
     } else {
         NendNativeAdLog::logDebug("Ad has not downloaded yet.");

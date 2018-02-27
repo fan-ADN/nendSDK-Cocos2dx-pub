@@ -8,6 +8,7 @@
 #define NendFullBoardAd_h
 #include <string>
 #include <functional>
+#include "cocos2d.h"
 
 namespace nend_module
 {
@@ -32,6 +33,10 @@ namespace nend_module
         void load();
         void show();
         NendFullBoardAdInner *m_Inner = NULL;
+        
+        void setBackgroundColor4F(const cocos2d::Color4F& color) { m_backgroundColor4F = color; }
+    private:
+        cocos2d::Color4F m_backgroundColor4F = cocos2d::Color4F::BLACK;
     };
 }
 

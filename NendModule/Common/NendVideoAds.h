@@ -16,6 +16,7 @@
 
 #include "NendInterstitialVideoAd.h"
 #include "NendRewardedVideoAd.h"
+#include "NendUserFeature.h"
 
 NS_NEND_BEGIN
 
@@ -43,6 +44,10 @@ public:
 
     void setUserid(const std::string& userId) {
         T::getImpl()->setUserId(userId);
+    }
+    
+    void setUserFeature(NendUserFeature *userFeature) {
+        T::getImpl()->setUserFeature(userFeature);
     }
 
     void setMediationName(const std::string& mediationName) {

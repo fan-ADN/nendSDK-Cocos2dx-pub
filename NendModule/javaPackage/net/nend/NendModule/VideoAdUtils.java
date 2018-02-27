@@ -4,12 +4,16 @@ import net.nend.android.NendAdInterstitialVideo;
 import net.nend.android.NendAdRewardItem;
 import net.nend.android.NendAdRewardedListener;
 import net.nend.android.NendAdRewardedVideo;
+import net.nend.android.NendAdUserFeature;
 import net.nend.android.NendAdVideo;
 import net.nend.android.NendAdVideoListener;
 
 import org.cocos2dx.lib.Cocos2dxHelper;
 
 public class VideoAdUtils {
+
+    private static final int GENDER_MALE = 1;
+    private static final int GENDER_FEMALE = 2;
 
     public static NendAdInterstitialVideo createInterstitialVideoAd(String spotId, String apiKey, int id) {
         NendAdInterstitialVideo videoAd = new NendAdInterstitialVideo(Cocos2dxHelper.getActivity(), Integer.valueOf(spotId), apiKey);
@@ -37,6 +41,52 @@ public class VideoAdUtils {
 
     public static void setUserId(NendAdVideo videoAd, String userId) {
         videoAd.setUserId(userId);
+    }
+
+    public static void setGender(int gender, NendAdUserFeature.Builder builder) {
+        if (gender == GENDER_MALE) {
+            builder.setGender(NendAdUserFeature.Gender.MALE);
+        } else if (gender == GENDER_FEMALE) {
+            builder.setGender(NendAdUserFeature.Gender.FEMALE);
+        }
+    }
+
+    public static void setBirthday(int year, int month, int day, NendAdUserFeature.Builder builder) {
+        builder.setBirthday(year, month, day);
+    }
+
+    public static void setAge(int age, NendAdUserFeature.Builder builder) {
+        if (age >= 0) {
+            builder.setAge(age);
+        }
+    }
+
+    public static void setCustomFeature(String key, int value, NendAdUserFeature.Builder builder) {
+        builder.addCustomFeature(key, value);
+    }
+
+    public static void setCustomFeature(String key, double value, NendAdUserFeature.Builder builder) {
+        builder.addCustomFeature(key, value);
+    }
+
+    public static void setCustomFeature(String key, String value, NendAdUserFeature.Builder builder) {
+        builder.addCustomFeature(key, value);
+    }
+
+    public static void setCustomFeature(String key, boolean value, NendAdUserFeature.Builder builder) {
+        builder.addCustomFeature(key, value);
+    }
+
+    public static NendAdUserFeature.Builder createUserFeatureBuilder() {
+        return new NendAdUserFeature.Builder();
+    }
+
+    public static NendAdUserFeature buildNendAdUserFeature(NendAdUserFeature.Builder builder) {
+        return builder.build();
+    }
+
+    public static void setUserFeature(NendAdVideo videoAd, NendAdUserFeature userFeature) {
+        videoAd.setUserFeature(userFeature);
     }
 
     public static void setMediationName(NendAdVideo videoAd, String mediationName) {

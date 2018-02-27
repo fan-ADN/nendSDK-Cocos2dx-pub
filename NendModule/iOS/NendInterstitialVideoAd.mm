@@ -228,6 +228,10 @@ void InterstitialVideoAd::setUserIdImpl(const std::string &userId) {
     impl_->getInterstitialVideoAd().userId = @(userId.c_str());
 }
 
+void InterstitialVideoAd::setUserFeatureImpl(NendUserFeature *userFeature) {
+    impl_->getInterstitialVideoAd().userFeature = (NADUserFeature *)userFeature->getUserFeature();
+}
+
 void InterstitialVideoAd::setMediationNameImpl(const std::string &mediationName) {
     impl_->getInterstitialVideoAd().mediationName = @(mediationName.c_str());
 }

@@ -46,6 +46,11 @@ void VideoAd<T>::setUserId(const std::string& userId) {
 }
 
 template <class T>
+void VideoAd<T>::setUserFeature(NendUserFeature *userFeature) {
+    Impl->setUserFeatureImpl(userFeature);
+}
+
+template <class T>
 void VideoAd<T>::setMediationName(const std::string& mediationName) {
     Impl->setMediationNameImpl(mediationName);
 }

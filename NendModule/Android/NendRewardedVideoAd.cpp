@@ -148,6 +148,10 @@ void RewardedVideoAd::setUserIdImpl(const std::string& userId) {
     VideoAdJni::setUserId(impl_->getRewardedVideoAd(), userId);
 }
 
+void RewardedVideoAd::setUserFeatureImpl(NendUserFeature *userFeature) {
+    VideoAdJni::setUserFeature(impl_->getRewardedVideoAd(), userFeature->buildUserFeature());
+}
+
 void RewardedVideoAd::setMediationNameImpl(const std::string& mediationName) {
     VideoAdJni::setMediationName(impl_->getRewardedVideoAd(), mediationName);
 }

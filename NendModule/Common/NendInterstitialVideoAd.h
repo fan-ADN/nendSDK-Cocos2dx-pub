@@ -9,6 +9,7 @@
 #include <memory>
 
 #include "NendVideoAd.h"
+#include "NendUserFeature.h"
 
 NS_NEND_BEGIN
 
@@ -25,6 +26,8 @@ public:
     bool isReadyImpl();
 
     void setUserIdImpl(const std::string& userId);
+
+    void setUserFeatureImpl(NendUserFeature *userFeature);
 
     void setMediationNameImpl(const std::string& mediationName);
 
