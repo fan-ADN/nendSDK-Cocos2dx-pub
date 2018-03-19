@@ -10,6 +10,7 @@
 
 #include "NendVideoAd.h"
 #include "NendUserFeature.h"
+#include "cocos2d.h"
 
 NS_NEND_BEGIN
 
@@ -35,10 +36,13 @@ public:
 
     void addFallbackFullBoard(const std::string& spotId, const std::string& apiKey);
 
+    void setFallbackFullBoardBackgroundColor4F(const cocos2d::Color4F& color) { m_fallbackFullboardBackgroundColor4F = color; }
+
     class Impl;
 
 private:
     std::unique_ptr<Impl> impl_;
+    cocos2d::Color4F m_fallbackFullboardBackgroundColor4F = cocos2d::Color4F::BLACK;
 };
 
 NS_NEND_END

@@ -217,6 +217,7 @@ void InterstitialVideoAd::loadAdImpl() {
 }
 
 void InterstitialVideoAd::showAdImpl() {
+    impl_->getInterstitialVideoAd().fallbackFullboardBackgroundColor = [UIColor colorWithRed:m_fallbackFullboardBackgroundColor4F.r green:m_fallbackFullboardBackgroundColor4F.g blue:m_fallbackFullboardBackgroundColor4F.b alpha:m_fallbackFullboardBackgroundColor4F.a];
     [impl_->getInterstitialVideoAd() showAdFromViewController:UIApplication.sharedApplication.keyWindow.rootViewController];
 }
 

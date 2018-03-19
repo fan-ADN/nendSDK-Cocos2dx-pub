@@ -106,6 +106,10 @@ public:
     void addFallbackFullBoard(const std::string& spotId, const std::string& apiKey) {
         impl_->addFallbackFullBoard(spotId, apiKey);
     }
+    
+    void setFallbackFullBoardBackgroundColor4F(const cocos2d::Color4F& color) {
+        impl_->setFallbackFullBoardBackgroundColor4F(color);
+    }
 
 protected:
     interstitial_video_ad_impl(const std::string& spotId, const std::string& apiKey, bool isOutputLog) {
