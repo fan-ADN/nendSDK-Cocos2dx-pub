@@ -87,30 +87,24 @@ void NendNativeImpressionTracker::checkAdImpression(float dt)
 
 bool NendNativeImpressionTracker::isImpressionNode(Node *checkNode)
 {
-    auto runningSceneChildren = Director::getInstance()->getRunningScene()->getChildren();
-    if (1 < runningSceneChildren.size()) {
-        auto scene = Director::getInstance()->getRunningScene()->getChildren().at(1);
-        Node *parentNode = nullptr;
-        for (parentNode = checkNode; parentNode->getParent() != nullptr; parentNode = parentNode->getParent()) {
-            if (parentNode == scene) {
-                break;
-            }
-        }
-        if (parentNode != scene) {
-            return false;
-        }
-
-        auto sceneRect = scene->getBoundingBox();
-        auto checkRect = checkNode->getBoundingBox();
-
-        Vec2 startPoint = checkNode->convertToWorldSpace(Point::ZERO);
-        Vec2 endPoint = checkNode->convertToWorldSpace(Vec2(checkRect.size.width, checkRect.size.height));
-
-        Size displayedSize = Size(MAX(0, MIN(sceneRect.size.width, endPoint.x) - MAX(0, startPoint.x)), MAX(0, MIN(sceneRect.size.height, endPoint.y) - MAX(0, startPoint.y)));
-
-        float intersectionArea = displayedSize.width * displayedSize.height;
-        float originalArea = checkRect.size.width * checkRect.size.height;
-        return intersectionArea >= (originalArea * NAD_NATIVE_PERCENT_VISIBLE / 100);
+    Node *parentNode = nullptr;
+    
+    for (parentNode = checkNode; parentNode->getParent() != nullptr; parentNode = parentNode->getParent()) {}
+    
+    Node *runningScene = Director::getInstance()->getRunningScene();
+    if (parentNode != runningScene) {
+        return false;
     }
-    return false;
+    
+    auto sceneRect = runningScene->getBoundingBox();
+    auto checkRect = checkNode->getBoundingBox();
+    
+    Vec2 startPoint = checkNode->convertToWorldSpace(Point::ZERO);
+    Vec2 endPoint = checkNode->convertToWorldSpace(Vec2(checkRect.size.width, checkRect.size.height));
+    
+    Size displayedSize = Size(MAX(0, MIN(sceneRect.size.width, endPoint.x) - MAX(0, startPoint.x)), MAX(0, MIN(sceneRect.size.height, endPoint.y) - MAX(0, startPoint.y)));
+    
+    float intersectionArea = displayedSize.width * displayedSize.height;
+    float originalArea = checkRect.size.width * checkRect.size.height;
+    return intersectionArea >= (originalArea * NAD_NATIVE_PERCENT_VISIBLE / 100);
 }
