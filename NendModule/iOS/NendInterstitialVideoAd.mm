@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import <NendAd/NADInterstitialVideo.h>
+#import <NendAd/NADLogger.h>
 
 using Event = nend_module::video::VideoAd<nend_module::video::InterstitialVideoAd>::EventType;
 
@@ -144,7 +145,7 @@ InterstitialVideoAd::Impl::~Impl() {
 InterstitialVideoAd::InterstitialVideoAd(const std::string& spotId, const std::string& apiKey, bool isOutputLog) : VideoAd<InterstitialVideoAd>() {
     impl_.reset(new InterstitialVideoAd::Impl(spotId, apiKey));
     
-    impl_->getInterstitialVideoAd().isOutputLog = isOutputLog;
+    [NADLogger setLogLevel:(isOutputLog ? NADLogLevelDebug : NADLogLevelOff)];
     impl_->getInterstitialVideoAdDelegate().callback = ^(Event event) {
         switch (event) {
             case Event::LOADED:

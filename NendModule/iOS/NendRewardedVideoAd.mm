@@ -10,6 +10,7 @@
 
 #import <Foundation/Foundation.h>
 #import <NendAd/NADRewardedVideo.h>
+#import <NendAd/NADLogger.h>
 
 using Event = nend_module::video::VideoAd<nend_module::video::RewardedVideoAd>::EventType;
 
@@ -159,7 +160,7 @@ RewardedVideoAd::Impl::~Impl() {
 RewardedVideoAd::RewardedVideoAd(const std::string& spotId, const std::string& apiKey, bool isOutputLog) : VideoAd<RewardedVideoAd>(), onRewarded_(nullptr) {
     impl_.reset(new RewardedVideoAd::Impl(spotId, apiKey));
     
-    impl_->getRewardedVideoAd().isOutputLog = isOutputLog;
+    [NADLogger setLogLevel:(isOutputLog ? NADLogLevelDebug : NADLogLevelOff)];
     impl_->getRewardedVideoAdDelegate().callback = ^(Event event) {
         switch (event) {
             case Event::LOADED:
