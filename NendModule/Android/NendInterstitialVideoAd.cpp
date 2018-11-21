@@ -109,7 +109,7 @@ void InterstitialVideoAd::Impl::postEventCallback(Event event) {
 
 #pragma mark -
 
-InterstitialVideoAd::InterstitialVideoAd(const std::string& spotId, const std::string& apiKey, bool isOutputLog)
+InterstitialVideoAd::InterstitialVideoAd(const std::string& spotId, const std::string& apiKey)
         : VideoAd<InterstitialVideoAd>() {
     impl_.reset(new InterstitialVideoAd::Impl(this, spotId, apiKey, JniUtils::getNextId()));
 }

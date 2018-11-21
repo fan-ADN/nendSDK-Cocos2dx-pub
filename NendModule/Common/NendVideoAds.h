@@ -17,6 +17,7 @@
 #include "NendInterstitialVideoAd.h"
 #include "NendRewardedVideoAd.h"
 #include "NendUserFeature.h"
+#include "NendLogger.h"
 
 NS_NEND_BEGIN
 
@@ -26,7 +27,7 @@ public:
     using DefaultCallback = std::function<void(const video_ad_container<T>& vac)>;
     using ErrorCallback = std::function<void(const video_ad_container<T>& vac, int errorCode)>;
 
-    video_ad_container(const std::string& spotId, const std::string& apiKey, bool isOutputLog) : T(spotId, apiKey, isOutputLog) {}
+    video_ad_container(const std::string& spotId, const std::string& apiKey) : T(spotId, apiKey) {}
 
     virtual ~video_ad_container() = default;
 
@@ -112,8 +113,8 @@ public:
     }
 
 protected:
-    interstitial_video_ad_impl(const std::string& spotId, const std::string& apiKey, bool isOutputLog) {
-        impl_.reset(new InterstitialVideoAd(spotId, apiKey, isOutputLog));
+    interstitial_video_ad_impl(const std::string& spotId, const std::string& apiKey) {
+        impl_.reset(new InterstitialVideoAd(spotId, apiKey));
     }
 
     InterstitialVideoAd* getImpl() const {
@@ -138,8 +139,8 @@ public:
     }
 
 protected:
-    rewarded_video_ad_impl(const std::string& spotId, const std::string& apiKey, bool isOutputLog) {
-        impl_.reset(new RewardedVideoAd(spotId, apiKey, isOutputLog));
+    rewarded_video_ad_impl(const std::string& spotId, const std::string& apiKey) {
+        impl_.reset(new RewardedVideoAd(spotId, apiKey));
     }
 
     RewardedVideoAd* getImpl() const {
@@ -157,12 +158,18 @@ struct VideoAds {
 
     static InterstitialVideoAd* createInterstitialVideoAd(const std::string& spotId, const std::string& apiKey, bool isOutputLog = false) {
         assert(!spotId.empty() && !apiKey.empty());
-        return new(std::nothrow) video_ad_container<interstitial_video_ad_impl>{spotId, apiKey, isOutputLog};
+        if (isOutputLog) {
+            NendLogger::setLogLevel(NendLoggerLogLevel::DEBUG);
+        }
+        return new(std::nothrow) video_ad_container<interstitial_video_ad_impl>{spotId, apiKey};
     }
 
     static RewardedVideoAd* createRewardedVideoAd(const std::string& spotId, const std::string& apiKey, bool isOutputLog = false) {
         assert(!spotId.empty() && !apiKey.empty());
-        return new(std::nothrow) video_ad_container<rewarded_video_ad_impl>{spotId, apiKey, isOutputLog};
+        if (isOutputLog) {
+            NendLogger::setLogLevel(NendLoggerLogLevel::DEBUG);
+        }
+        return new(std::nothrow) video_ad_container<rewarded_video_ad_impl>{spotId, apiKey};
     }
 
 };

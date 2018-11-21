@@ -7,7 +7,7 @@
 
 #include <stdio.h>
 #include "NendHttpHelper.h"
-#include "NendNativeAdLog.h"
+#include "NendLogger.h"
 
 USING_NS_CC;
 using namespace cocos2d::network;
@@ -30,7 +30,7 @@ NendHttpHelper::NendHttpHelper()
 
 NendHttpHelper::~NendHttpHelper()
 {
-    NendNativeAdLog::logDebug(__FUNCTION__);
+    NendLogger::logDebug(__FUNCTION__);
 }
 
 void NendHttpHelper::setCallback(const std::function<void (HttpResponse *, NendHttpHelper*)> &callback)

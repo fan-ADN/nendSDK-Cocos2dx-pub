@@ -5,7 +5,7 @@
 //
 //
 
-#include "NendNativeAdLog.h"
+#include "NendLogger.h"
 #include "NendNativeLabel.h"
 
 USING_NS_CC;
@@ -17,7 +17,7 @@ NendNativeLabel::NendNativeLabel()
 }
 NendNativeLabel::~NendNativeLabel()
 {
-    NendNativeAdLog::logDebug(__FUNCTION__);
+    NendLogger::logDebug(__FUNCTION__);
 }
 
 #pragma mark - create

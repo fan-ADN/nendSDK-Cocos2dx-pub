@@ -6,45 +6,52 @@
 //
 
 #include "NendNativeAdLog.h"
+#include "NendLogger.h"
 
-USING_NS_CC;
 using namespace nend_module;
 
-const std::string NendNativeAdLog::NEND_NATIVE_LOG_PREFIX_DEBUG = "nend_native_moudle_debug";
-const std::string NendNativeAdLog::NEND_NATIVE_LOG_PREFIX_INFO = "nend_native_moudle_info";
-const std::string NendNativeAdLog::NEND_NATIVE_LOG_PREFIX_WARN = "nend_native_moudle_warn";
-const std::string NendNativeAdLog::NEND_NATIVE_LOG_PREFIX_ERROR = "nend_native_moudle_error";
-
-static NendNativeAdLogLevel s_logLevel = NEND_NATIVE_LOG_LEVEL_NONE;
-
-static void NendNativeLog(NendNativeAdLogLevel logLevel, const std::string prefix, const std::string message)
-{
-    if (logLevel >= s_logLevel) {
-        log("%s:%s", prefix.c_str(), message.c_str());
-    }
-}
+const std::string NendNativeAdLog::NEND_NATIVE_LOG_PREFIX_DEBUG = "nend_native_module_debug";
+const std::string NendNativeAdLog::NEND_NATIVE_LOG_PREFIX_INFO = "nend_native_module_info";
+const std::string NendNativeAdLog::NEND_NATIVE_LOG_PREFIX_WARN = "nend_native_module_warn";
+const std::string NendNativeAdLog::NEND_NATIVE_LOG_PREFIX_ERROR = "nend_native_module_error";
 
 void NendNativeAdLog::setNativeLogLevel(NendNativeAdLogLevel logLevel)
 {
-    s_logLevel = logLevel;
+    switch (logLevel) {
+        case NEND_NATIVE_LOG_LEVEL_DEBUG:
+            NendLogger::setLogLevel(NendLoggerLogLevel::DEBUG);
+            break;
+        case NEND_NATIVE_LOG_LEVEL_INFO:
+            NendLogger::setLogLevel(NendLoggerLogLevel::INFO);
+            break;
+        case NEND_NATIVE_LOG_LEVEL_WARN:
+            NendLogger::setLogLevel(NendLoggerLogLevel::WARN);
+            break;
+        case NEND_NATIVE_LOG_LEVEL_ERROR:
+            NendLogger::setLogLevel(NendLoggerLogLevel::ERROR);
+            break;
+        default:
+            NendLogger::setLogLevel(NendLoggerLogLevel::OFF);
+            break;
+    }
 }
 
-void NendNativeAdLog::logDebug(const std::string message)
+void NendNativeAdLog::logDebug(const std::string& message)
 {
-    NendNativeLog(NEND_NATIVE_LOG_LEVEL_DEBUG, NEND_NATIVE_LOG_PREFIX_DEBUG, message.c_str());
+    NendLogger::logDebug(message);
 }
 
-void NendNativeAdLog::logInfo(const std::string message)
+void NendNativeAdLog::logInfo(const std::string& message)
 {
-    NendNativeLog(NEND_NATIVE_LOG_LEVEL_INFO, NEND_NATIVE_LOG_PREFIX_INFO, message.c_str());
+    NendLogger::logInfo(message);
 }
 
-void NendNativeAdLog::logWarn(const std::string message)
+void NendNativeAdLog::logWarn(const std::string& message)
 {
-    NendNativeLog(NEND_NATIVE_LOG_LEVEL_WARN, NEND_NATIVE_LOG_PREFIX_WARN, message.c_str());
+    NendLogger::logWarn(message);
 }
 
-void NendNativeAdLog::logError(const std::string message)
+void NendNativeAdLog::logError(const std::string& message)
 {
-    NendNativeLog(NEND_NATIVE_LOG_LEVEL_ERROR, NEND_NATIVE_LOG_PREFIX_ERROR, message.c_str());
+    NendLogger::logError(message);
 }

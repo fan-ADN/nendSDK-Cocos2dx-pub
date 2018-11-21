@@ -5,7 +5,7 @@
 //
 //
 
-#include "NendNativeAdLog.h"
+#include "NendLogger.h"
 #include "NendNativeSprite.h"
 
 USING_NS_CC;
@@ -17,7 +17,7 @@ NendNativeSprite::NendNativeSprite()
 }
 NendNativeSprite::~NendNativeSprite()
 {
-    NendNativeAdLog::logDebug(__FUNCTION__);
+    NendLogger::logDebug(__FUNCTION__);
 }
 
 #pragma mark - createWithImageType

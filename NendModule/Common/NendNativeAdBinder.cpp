@@ -7,7 +7,7 @@
 //
 
 #include "NendNativeAdBinder.h"
-#include "NendNativeAdLog.h"
+#include "NendLogger.h"
 
 using namespace nend_module;
 
@@ -17,7 +17,7 @@ NendNativeAdBinder::NendNativeAdBinder()
 
 NendNativeAdBinder::~NendNativeAdBinder()
 {
-    NendNativeAdLog::logDebug(__FUNCTION__);
+    NendLogger::logDebug(__FUNCTION__);
 }
 
 NendNativeAdBinder *NendNativeAdBinder::create()

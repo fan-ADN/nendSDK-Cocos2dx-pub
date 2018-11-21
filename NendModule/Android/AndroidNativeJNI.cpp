@@ -8,7 +8,7 @@
 #include "cocos2d.h"
 #include "AndroidNativeJNI.h"
 #include "platform/android/jni/JniHelper.h"
-#include "NendNativeAdLog.h"
+#include "NendLogger.h"
 
 using namespace nend_module::internal;
 
@@ -19,7 +19,7 @@ AndroidNativeJNI::AndroidNativeJNI()
 
 AndroidNativeJNI::~AndroidNativeJNI()
 {
-    NendNativeAdLog::logDebug(__FUNCTION__);
+    NendLogger::logDebug(__FUNCTION__);
 }
 
 void AndroidNativeJNI::callJNI(const std::function<void (JNIEnv* env)> &callback)

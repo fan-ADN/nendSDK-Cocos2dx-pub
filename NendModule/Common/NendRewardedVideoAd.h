@@ -16,7 +16,7 @@ NS_NEND_BEGIN
 
 class RewardedVideoAd : public VideoAd<RewardedVideoAd> {
 public:
-    RewardedVideoAd(const std::string& spotId, const std::string& apiKey, bool isOutputLog);
+    RewardedVideoAd(const std::string& spotId, const std::string& apiKey);
 
     virtual ~RewardedVideoAd();
 

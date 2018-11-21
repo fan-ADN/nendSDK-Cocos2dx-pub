@@ -6,7 +6,7 @@
 //
 
 #include "NendNativeAd.h"
-#include "NendNativeAdLog.h"
+#include "NendLogger.h"
 #include "NendNativeAdRender.h"
 #include "NendNativeImpressionTracker.h"
 
@@ -23,7 +23,7 @@ std::vector<NendHttpHelper *> httpHelpers;
 
 NendNativeAd::~NendNativeAd()
 {
-    NendNativeAdLog::logDebug(__FUNCTION__);
+    NendLogger::logDebug(__FUNCTION__);
 
     for (std::vector<EventListenerTouchOneByOne *>::iterator it = touchListeners.begin(); it != touchListeners.end(); it++) {
         Director::getInstance()->getEventDispatcher()->removeEventListener(*it);
@@ -70,11 +70,11 @@ void NendNativeAd::downloadImageData(const std::string imageUrl, const std::func
             
             callback(texture, "");
             CC_SAFE_RELEASE(img);
-            NendNativeAdLog::logDebug(StringUtils::format("%s image download was successful. response code:%ld", response->getHttpRequest()->getTag(), response->getResponseCode()));
+            NendLogger::logDebug(StringUtils::format("%s image download was successful. response code:%ld", response->getHttpRequest()->getTag(), response->getResponseCode()));
 
         } else {
             callback(nullptr, response->getErrorBuffer());
-            NendNativeAdLog::logError(StringUtils::format("Failed to download %s image. response code:%ld, error:%s", response->getHttpRequest()->getTag(), response->getResponseCode(), response->getErrorBuffer()));
+            NendLogger::logError(StringUtils::format("Failed to download %s image. response code:%ld, error:%s", response->getHttpRequest()->getTag(), response->getResponseCode(), response->getErrorBuffer()));
         }
         this->deleteNendHttpHelper(httpHelper);
     });
@@ -103,7 +103,7 @@ void NendNativeAd::activateAdView(Node *node, Label *prLabel)
             this->setDidImpression(true);
             NendNativeImpressionTracker::getInstance()->removeTrackingNode(this);
             this->onImpression();
-            NendNativeAdLog::logDebug("AD impression.");
+            NendLogger::logDebug("AD impression.");
         } else {
             NendNativeImpressionTracker::getInstance()->addTrackingNode(this, node);
         }
@@ -131,7 +131,7 @@ void NendNativeAd::renderAdViews(Node *node, NendNativeAdBinder *binder, NendNat
 
         this->activateAdView(node, NendNativeAdRender::findLabelFromContainer(node, NendNativeAdRender::createFindName(binder->getPrText_Name())));
 
-        NendNativeAdLog::logInfo(StringUtils::format("Did render ad node of name: %s", node->getName().c_str()));
+        NendLogger::logInfo(StringUtils::format("Did render ad node of name: %s", node->getName().c_str()));
     });
 }
 
@@ -195,7 +195,7 @@ void NendNativeAd::tryClickPR(Touch *touch, Label *prLabel)
 
         if (prLabel->isVisible()) {
             this->onInformationClick();
-            NendNativeAdLog::logDebug("Click PR text.");
+            NendLogger::logDebug("Click PR text.");
         }
     }
 }

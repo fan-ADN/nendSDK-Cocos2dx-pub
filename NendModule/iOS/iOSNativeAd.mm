@@ -5,7 +5,7 @@
 //
 //
 #import <NendAd/NADNative.h>
-#include "NendNativeAdLog.h"
+#include "NendLogger.h"
 #include "iOSNativeAd.h"
 
 using namespace nend_module::internal;
@@ -30,7 +30,7 @@ class iOSNativeAd::NativeInner : public cocos2d::Ref
     }
     virtual ~NativeInner()
     {
-        NendNativeAdLog::logDebug(__FUNCTION__);
+        NendLogger::logDebug(__FUNCTION__);
         [m_nadNative release];
     }
 
@@ -62,7 +62,7 @@ iOSNativeAd::iOSNativeAd()
 
 iOSNativeAd::~iOSNativeAd()
 {
-    NendNativeAdLog::logDebug(__FUNCTION__);
+    NendLogger::logDebug(__FUNCTION__);
     CC_SAFE_DELETE(m_inner);
 }
 

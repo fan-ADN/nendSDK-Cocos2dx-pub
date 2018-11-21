@@ -6,7 +6,7 @@
 //
 
 #include "AndroidNativeAdClient.h"
-#include "NendNativeAdLog.h"
+#include "NendLogger.h"
 
 using namespace nend_module;
 using namespace nend_module::internal;
@@ -68,11 +68,11 @@ AndroidNativeAdClient::AndroidNativeAdClient(const std::string apiKey, const std
 
 AndroidNativeAdClient::~AndroidNativeAdClient()
 {
-    NendNativeAdLog::logDebug(__FUNCTION__);
+    NendLogger::logDebug(__FUNCTION__);
     std::function<void (JNIEnv* env)> callback_ = [=](JNIEnv* env) {
         if (m_nativeClient != NULL) {
             env->DeleteGlobalRef(m_nativeClient);
-            NendNativeAdLog::logDebug("delete NendNativeAdClient jobject");
+            NendLogger::logDebug("delete NendNativeAdClient jobject");
         }
     };
     this->callJNI(callback_);
@@ -211,7 +211,7 @@ void loadAdFailed(JNIEnv* env, jobject errorObject, std::function<void (int erro
         callback(errorCode, std::string(errorMessage));
     }
     
-    NendNativeAdLog::logError(StringUtils::format("loadAd error: %d, description: %s", errorCode, errorMessage));
+    NendLogger::logError(StringUtils::format("loadAd error: %d, description: %s", errorCode, errorMessage));
     
     if (messageObj != NULL && errorMessage != NULL){
         env->ReleaseStringUTFChars(messageObj, errorMessage);

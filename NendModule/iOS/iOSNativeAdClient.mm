@@ -7,7 +7,7 @@
 
 #import <NendAd/NADNativeClient.h>
 #include "NendNativeAd.h"
-#include "NendNativeAdLog.h"
+#include "NendLogger.h"
 #include "NendNativeAdRender.h"
 #include "iOSNativeAd.h"
 #include "iOSNativeAdClient.h"
@@ -35,7 +35,7 @@ class iOSNativeAdClient::NativeInner : public cocos2d::Ref
     }
     virtual ~NativeInner()
     {
-        NendNativeAdLog::logDebug(__FUNCTION__);
+        NendLogger::logDebug(__FUNCTION__);
         [m_nadNativeClient release];
     }
 
@@ -75,7 +75,7 @@ iOSNativeAdClient::iOSNativeAdClient(const std::string apiKey, const std::string
 
 iOSNativeAdClient::~iOSNativeAdClient()
 {
-    NendNativeAdLog::logDebug(__FUNCTION__);
+    NendLogger::logDebug(__FUNCTION__);
     CC_SAFE_DELETE(m_inner);
 }
 
@@ -118,7 +118,7 @@ void callbackLoadResult(std::function<void(iOSNativeAd *nativeAd, int *errorCode
             if (callback) {
                 callback(nullptr, &errorCode, [error.description UTF8String]);
             }
-            NendNativeAdLog::logError(StringUtils::format("loadAd error: %d, description: %s", errorCode, [error.description UTF8String]));
+            NendLogger::logError(StringUtils::format("loadAd error: %d, description: %s", errorCode, [error.description UTF8String]));
         }
     }
 }

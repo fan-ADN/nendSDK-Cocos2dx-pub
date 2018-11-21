@@ -122,7 +122,7 @@ void RewardedVideoAd::Impl::postEventCallback(Event event) {
 
 #pragma mark -
 
-RewardedVideoAd::RewardedVideoAd(const std::string& spotId, const std::string& apiKey, bool isOutputLog)
+RewardedVideoAd::RewardedVideoAd(const std::string& spotId, const std::string& apiKey)
         : VideoAd<RewardedVideoAd>(), onRewarded_(nullptr) {
     impl_.reset(new RewardedVideoAd::Impl(this, spotId, apiKey, JniUtils::getNextId()));
 }

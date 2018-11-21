@@ -7,7 +7,7 @@
 
 #include "NendFullBoardAd.h"
 #include "platform/android/jni/JniHelper.h"
-#include "NendNativeAdLog.h"
+#include "NendLogger.h"
 #define CLASS_NAME "net/nend/NendModule/NendFullBoardAd"
 using namespace nend_module;
 
@@ -32,7 +32,7 @@ public:
     }
     virtual ~NendFullBoardAdInner()
     {
-        NendNativeAdLog::logDebug(__FUNCTION__);
+        NendLogger::logDebug(__FUNCTION__);
         cocos2d::JniHelper::getEnv()->DeleteGlobalRef(m_nendFullBoard);
         cocos2d::JniHelper::getEnv()->DeleteGlobalRef(m_nendFullBoardLoader);
     }
@@ -61,7 +61,7 @@ NendFullBoardAd::NendFullBoardAd(const std::string& spotID, const std::string& a
 
 NendFullBoardAd::~NendFullBoardAd()
 {
-    NendNativeAdLog::logDebug(__FUNCTION__);
+    NendLogger::logDebug(__FUNCTION__);
     CC_SAFE_DELETE(m_Inner);
 }
 
@@ -83,7 +83,7 @@ void NendFullBoardAd::show()
             t.env->DeleteLocalRef(t.classID);
         }
     } else {
-        NendNativeAdLog::logDebug("Ad has not downloaded yet.");
+        NendLogger::logDebug("Ad has not downloaded yet.");
     }
 }
 

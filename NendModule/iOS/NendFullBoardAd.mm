@@ -9,7 +9,7 @@
 #import <NendAd/NADFullBoardLoader.h>
 #import <NendAd/NADFullBoard.h>
 #include "NendFullBoardAd.h"
-#include "NendNativeAdLog.h"
+#include "NendLogger.h"
 
 @interface NadFullBoardDelegate : NSObject<NADFullBoardDelegate>
 
@@ -53,7 +53,7 @@ public:
     virtual ~NendFullBoardAdInner()
     {
         
-        NendNativeAdLog::logDebug(__FUNCTION__);
+        NendLogger::logDebug(__FUNCTION__);
         [m_Delegate release];
         [m_nadFullBoard release];
         [m_nadFullBoardLoader release];
@@ -123,7 +123,7 @@ NendFullBoardAd::NendFullBoardAd(const std::string& spotId, const std::string& a
 
 NendFullBoardAd::~NendFullBoardAd()
 {
-    NendNativeAdLog::logDebug(__FUNCTION__);
+    NendLogger::logDebug(__FUNCTION__);
     CC_SAFE_DELETE(m_Inner);
 }
 
@@ -163,6 +163,6 @@ void NendFullBoardAd::show() {
         m_Inner->getNADFullBoard().backgroundColor = [UIColor colorWithRed:m_backgroundColor4F.r green:m_backgroundColor4F.g blue:m_backgroundColor4F.b alpha:m_backgroundColor4F.a];
         [m_Inner->getNADFullBoard() showFromViewController:[UIApplication sharedApplication].keyWindow.rootViewController];
     } else {
-        NendNativeAdLog::logDebug("Ad has not downloaded yet.");
+        NendLogger::logDebug("Ad has not downloaded yet.");
     }
 }

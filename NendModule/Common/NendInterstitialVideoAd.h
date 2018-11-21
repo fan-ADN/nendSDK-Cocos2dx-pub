@@ -16,7 +16,7 @@ NS_NEND_BEGIN
 
 class InterstitialVideoAd : public VideoAd<InterstitialVideoAd> {
 public:
-    InterstitialVideoAd(const std::string& spotId, const std::string& apiKey, bool isOutputLog);
+    InterstitialVideoAd(const std::string& spotId, const std::string& apiKey);
 
     virtual ~InterstitialVideoAd();
 

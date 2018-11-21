@@ -5,7 +5,7 @@
 //
 //
 
-#include "NendNativeAdLog.h"
+#include "NendLogger.h"
 #include "NendNativeClippingNode.h"
 
 USING_NS_CC;
@@ -102,7 +102,7 @@ NendNativeClippingNode::NendNativeClippingNode()
 
 NendNativeClippingNode::~NendNativeClippingNode()
 {
-    NendNativeAdLog::logDebug(__FUNCTION__);
+    NendLogger::logDebug(__FUNCTION__);
 }
 
 #pragma mark - Setter / Getter

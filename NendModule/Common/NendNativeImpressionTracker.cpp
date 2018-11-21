@@ -5,7 +5,7 @@
 //
 //
 
-#include "NendNativeAdLog.h"
+#include "NendLogger.h"
 #include "NendNativeImpressionTracker.h"
 
 using namespace nend_module;
@@ -67,7 +67,7 @@ void NendNativeImpressionTracker::removeTrackingNode(NendNativeAd *nativeAd)
 
 void NendNativeImpressionTracker::checkAdImpression(float dt)
 {
-    NendNativeAdLog::logDebug("Tracking impression...");
+    NendLogger::logDebug("Tracking impression...");
 
     auto itr = trackingNodeMap.begin();
     while (itr != trackingNodeMap.end()) {
@@ -76,7 +76,7 @@ void NendNativeImpressionTracker::checkAdImpression(float dt)
             NendNativeAd *nativeAd = (*itr).second;
             nativeAd->setDidImpression(true);
             nativeAd->onImpression();
-            NendNativeAdLog::logDebug("AD impression.");
+            NendLogger::logDebug("AD impression.");
             this->removeTrackingNode(nativeAd);
             itr = trackingNodeMap.begin();
         } else {

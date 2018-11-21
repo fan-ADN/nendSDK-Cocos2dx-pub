@@ -6,7 +6,7 @@
 //
 
 #include "AndroidNativeAd.h"
-#include "NendNativeAdLog.h"
+#include "NendLogger.h"
 
 using namespace nend_module::internal;
 
@@ -36,15 +36,15 @@ AndroidNativeAd::AndroidNativeAd()
 
 AndroidNativeAd::~AndroidNativeAd()
 {
-    NendNativeAdLog::logDebug(__FUNCTION__);
+    NendLogger::logDebug(__FUNCTION__);
     std::function<void (JNIEnv* env)> callback_ = [=](JNIEnv* env) {
         if (m_connector != NULL) {
             env->DeleteGlobalRef(m_connector);
-            NendNativeAdLog::logDebug("delete NendNativeAdConnector jobject");
+            NendLogger::logDebug("delete NendNativeAdConnector jobject");
         }
         if (m_activity != NULL) {
             env->DeleteGlobalRef(m_activity);
-            NendNativeAdLog::logDebug("delete Activity jobject");
+            NendLogger::logDebug("delete Activity jobject");
         }
     };
     this->callJNI(callback_);

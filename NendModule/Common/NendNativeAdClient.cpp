@@ -6,7 +6,7 @@
 //
 
 #include "NendNativeAdClient.h"
-#include "NendNativeAdLog.h"
+#include "NendLogger.h"
 #include "NendNativeImpressionTracker.h"
 
 #include <algorithm>
@@ -66,7 +66,7 @@ void NendNativeAdClient::initialize(const std::string apiKey, const std::string 
 
 NendNativeAdClient::~NendNativeAdClient()
 {
-    NendNativeAdLog::logDebug(__FUNCTION__);
+    NendLogger::logDebug(__FUNCTION__);
 
     this->disableAutoReload();
 
@@ -136,7 +136,7 @@ void NendNativeAdClient::loadAd(const std::function<void(NendNativeLoadResultCod
 void NendNativeAdClient::renderAdViews(Node *container, NendNativeAdBinder *binder)
 {
     if (!m_nativeAd) {
-        NendNativeAdLog::logWarn("renderAdViews invalid. Because of loadAd is incomplete");
+        NendLogger::logWarn("renderAdViews invalid. Because of loadAd is incomplete");
         return;
     }
 
