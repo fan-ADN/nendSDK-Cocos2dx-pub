@@ -139,6 +139,10 @@ void InterstitialVideoAd::setUserFeatureImpl(NendUserFeature *userFeature) {
     VideoAdJni::setUserFeature(impl_->getInterstitialVideoAd(), userFeature->buildUserFeature());
 }
 
+void InterstitialVideoAd::setLocationEnabledImpl(bool enabledLocation) {
+    VideoAdJni::setLocationEnabled(impl_->getInterstitialVideoAd(), enabledLocation);
+}
+
 void InterstitialVideoAd::setMediationNameImpl(const std::string& mediationName) {
     VideoAdJni::setMediationName(impl_->getInterstitialVideoAd(), mediationName);
 }
@@ -151,6 +155,10 @@ void InterstitialVideoAd::destroyImpl() {
 
 void InterstitialVideoAd::addFallbackFullBoard(const std::string& spotId, const std::string& apiKey) {
     VideoAdJni::addFallbackFullBoard(impl_->getInterstitialVideoAd(), spotId, apiKey);
+}
+
+void InterstitialVideoAd::setMuteStartPlaying(bool mute) {
+    VideoAdJni::setMuteStartPlaying(impl_->getInterstitialVideoAd(), mute);
 }
 
 extern "C" {

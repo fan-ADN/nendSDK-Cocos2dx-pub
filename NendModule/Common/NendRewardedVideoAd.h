@@ -29,6 +29,8 @@ public:
     void setUserIdImpl(const std::string& userId);
 
     void setUserFeatureImpl(NendUserFeature *userFeature);
+    
+    void setLocationEnabledImpl(bool enabledLocation);
 
     void setMediationNameImpl(const std::string& mediationName);
 

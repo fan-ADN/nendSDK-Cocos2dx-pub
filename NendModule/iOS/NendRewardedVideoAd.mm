@@ -256,6 +256,10 @@ void RewardedVideoAd::setUserFeatureImpl(NendUserFeature *userFeature) {
     impl_->getRewardedVideoAd().userFeature = (NADUserFeature *)userFeature->getUserFeature();
 }
 
+void RewardedVideoAd::setLocationEnabledImpl(bool enabledLocation) {
+    impl_->getRewardedVideoAd().isLocationEnabled = enabledLocation;
+}
+
 void RewardedVideoAd::setMediationNameImpl(const std::string &mediationName) {
     impl_->getRewardedVideoAd().mediationName = @(mediationName.c_str());
 }

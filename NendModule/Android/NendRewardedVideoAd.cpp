@@ -152,6 +152,10 @@ void RewardedVideoAd::setUserFeatureImpl(NendUserFeature *userFeature) {
     VideoAdJni::setUserFeature(impl_->getRewardedVideoAd(), userFeature->buildUserFeature());
 }
 
+void RewardedVideoAd::setLocationEnabledImpl(bool enabledLocation) {
+    VideoAdJni::setLocationEnabled(impl_->getRewardedVideoAd(), enabledLocation);
+}
+
 void RewardedVideoAd::setMediationNameImpl(const std::string& mediationName) {
     VideoAdJni::setMediationName(impl_->getRewardedVideoAd(), mediationName);
 }

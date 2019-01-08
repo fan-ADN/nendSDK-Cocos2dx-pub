@@ -51,6 +51,11 @@ void VideoAd<T>::setUserFeature(NendUserFeature *userFeature) {
 }
 
 template <class T>
+void VideoAd<T>::setLocationEnabled(bool enabledLocation) {
+    Impl->setLocationEnabledImpl(enabledLocation);
+}
+
+template <class T>
 void VideoAd<T>::setMediationName(const std::string& mediationName) {
     Impl->setMediationNameImpl(mediationName);
 }

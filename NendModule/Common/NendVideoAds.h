@@ -54,6 +54,10 @@ public:
     void setMediationName(const std::string& mediationName) {
         T::getImpl()->setMediationName(mediationName);
     }
+    
+    void setLocationEnabled(bool enabledLocation) {
+        T::getImpl()->setLocationEnabled(enabledLocation);
+    }
 
     void destroy() {
         T::getImpl()->destroy();
@@ -110,6 +114,10 @@ public:
     
     void setFallbackFullBoardBackgroundColor4F(const cocos2d::Color4F& color) {
         impl_->setFallbackFullBoardBackgroundColor4F(color);
+    }
+    
+    void setMuteStartPlaying(bool mute) {
+        impl_->setMuteStartPlaying(mute);
     }
 
 protected:

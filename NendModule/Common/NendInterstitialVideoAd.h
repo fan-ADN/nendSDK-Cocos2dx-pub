@@ -29,6 +29,8 @@ public:
     void setUserIdImpl(const std::string& userId);
 
     void setUserFeatureImpl(NendUserFeature *userFeature);
+    
+    void setLocationEnabledImpl(bool enabledLocation);
 
     void setMediationNameImpl(const std::string& mediationName);
 
@@ -38,6 +40,8 @@ public:
 
     void setFallbackFullBoardBackgroundColor4F(const cocos2d::Color4F& color) { m_fallbackFullboardBackgroundColor4F = color; }
 
+    void setMuteStartPlaying(bool mute);
+    
     class Impl;
 
 private:

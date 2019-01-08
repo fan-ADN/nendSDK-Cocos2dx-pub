@@ -43,6 +43,10 @@ public class VideoAdUtils {
         videoAd.setUserId(userId);
     }
 
+    public static void setLocationEnabled(NendAdVideo videoAd, boolean enabledLocation) {
+        videoAd.setLocationEnabled(enabledLocation);
+    }
+
     public static void setGender(int gender, NendAdUserFeature.Builder builder) {
         if (gender == GENDER_MALE) {
             builder.setGender(NendAdUserFeature.Gender.MALE);
@@ -99,6 +103,10 @@ public class VideoAdUtils {
 
     public static void addFallbackFullBoard(NendAdInterstitialVideo videoAd, String spotId, String apiKey) {
         videoAd.addFallbackFullboard(Integer.valueOf(spotId), apiKey);
+    }
+
+    public static void setMuteStartPlaying(NendAdInterstitialVideo videoAd, boolean mute) {
+        videoAd.setMuteStartPlaying(mute);
     }
 
     public static native void nativeOnInterstitialVideoAdLoaded(int id);

@@ -44,6 +44,8 @@ public:
     void setUserId(const std::string& userId);
 
     void setUserFeature(NendUserFeature *userFeature);
+    
+    void setLocationEnabled(bool enabledLocation);
 
     void setMediationName(const std::string& mediationName);
 

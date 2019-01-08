@@ -232,6 +232,10 @@ void InterstitialVideoAd::setUserFeatureImpl(NendUserFeature *userFeature) {
     impl_->getInterstitialVideoAd().userFeature = (NADUserFeature *)userFeature->getUserFeature();
 }
 
+void InterstitialVideoAd::setLocationEnabledImpl(bool enabledLocation) {
+    impl_->getInterstitialVideoAd().isLocationEnabled = enabledLocation;
+}
+
 void InterstitialVideoAd::setMediationNameImpl(const std::string &mediationName) {
     impl_->getInterstitialVideoAd().mediationName = @(mediationName.c_str());
 }
@@ -244,6 +248,10 @@ void InterstitialVideoAd::destroyImpl() {
 
 void InterstitialVideoAd::addFallbackFullBoard(const std::string &spotId, const std::string &apiKey) {
     [impl_->getInterstitialVideoAd() addFallbackFullboardWithSpotId:@(spotId.c_str()) apiKey:@(apiKey.c_str())];
+}
+
+void InterstitialVideoAd::setMuteStartPlaying(bool mute) {
+    impl_->getInterstitialVideoAd().isMuteStartPlaying = mute;
 }
 
 NS_NEND_END

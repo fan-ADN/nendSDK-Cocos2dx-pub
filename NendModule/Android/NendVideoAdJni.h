@@ -54,6 +54,13 @@ public:
         }
     }
 
+    static void setLocationEnabled(const jobject& videoAd, bool enabledLocation) {
+        if (videoAd != nullptr) {
+            JniUtils::callStaticVoidMethod(kNendVideoAdBridgeClass, "setLocationEnabled",
+                                           "(Lnet/nend/android/NendAdVideo;Z)V", videoAd, enabledLocation);
+        }
+    }
+
     static void setMediationName(const jobject& videoAd, const std::string& mediationName) {
         if (videoAd != nullptr) {
             JniUtils::callStaticVoidMethod(kNendVideoAdBridgeClass, "setMediationName",
@@ -73,6 +80,13 @@ public:
             JniUtils::callStaticVoidMethod(kNendVideoAdBridgeClass, "addFallbackFullBoard",
                                            "(Lnet/nend/android/NendAdInterstitialVideo;Ljava/lang/String;Ljava/lang/String;)V",
                                            videoAd, spotId, apiKey);
+        }
+    }
+
+    static void setMuteStartPlaying(const jobject& videoAd, bool mute) {
+        if (videoAd != nullptr) {
+            JniUtils::callStaticVoidMethod(kNendVideoAdBridgeClass, "setMuteStartPlaying",
+                                           "(Lnet/nend/android/NendAdInterstitialVideo;Z)V", videoAd, mute);
         }
     }
 };
