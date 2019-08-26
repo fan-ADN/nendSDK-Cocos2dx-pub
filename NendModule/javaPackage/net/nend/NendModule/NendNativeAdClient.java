@@ -4,8 +4,8 @@ import android.app.Activity;
 
 import net.nend.android.NendAdNative;
 import net.nend.android.NendAdNativeClient;
-import net.nend.android.NendNativeAdConnector;
-import net.nend.android.NendNativeAdConnectorFactory;
+import net.nend.android.internal.connectors.NendNativeAdConnector;
+import net.nend.android.internal.connectors.NendNativeAdConnectorFactory;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
 

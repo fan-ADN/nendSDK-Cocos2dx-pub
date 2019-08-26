@@ -99,7 +99,7 @@ void createNendNativeAd(JNIEnv* env, jobject nativeAdConnector, jobject activity
     const char *logoImageUrl = NULL;
     const char *actionButtonText = NULL;
     
-    jclass cls = env->FindClass("net/nend/android/NendNativeAdConnector");
+    jclass cls = env->FindClass("net/nend/android/internal/connectors/NendNativeAdConnector");
     if (cls == NULL) {
         return;
     }

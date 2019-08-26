@@ -10,7 +10,7 @@
 
 using namespace nend_module::internal;
 
-#define CLASS_NAME "net/nend/android/NendNativeAdConnector"
+#define CLASS_NAME "net/nend/android/internal/connectors/NendNativeAdConnector"
 #define METHOD_ID_SIGNATURE "(Landroid/app/Activity;)V"
 #define METHOD_ID_SIGNATURE_GET_AD_EXPLICITLYTEXT "(I)Ljava/lang/String;"
 #define METHOD_NAME_AD_CLICK "performAdClick"
