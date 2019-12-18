@@ -17,4 +17,4 @@ nendSDKをcocos2d-xで利用するためのモジュールです。
 
 ## License
 
-Copyright (C) F@N Communications, Inc.
+Copyright (C) FAN Communications, Inc.
