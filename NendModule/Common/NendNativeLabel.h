@@ -1,7 +1,7 @@
 //
 //  NendNativeLabel.h
 //
-//  Created by F@N Communications, Inc.
+//  Created by FAN Communications, Inc.
 //
 //
 
@@ -13,14 +13,14 @@
 USING_NS_CC;
 
 namespace nend_module
-{    
+{
     class __attribute__((deprecated("will be removed."))) NendNativeLabel : public cocos2d::Label
     {
     public:
         NendNativeLabel();
         ~NendNativeLabel();
-        
-        static NendNativeLabel* create();        
+
+        static NendNativeLabel* create();
     };
 }
 #endif /* NendNativeLabel_h */

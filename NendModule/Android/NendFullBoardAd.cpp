@@ -1,7 +1,7 @@
 //
 //  NendFullBoardAd.cpp
 //
-//  Created by F@N Communications, Inc.
+//  Created by FAN Communications, Inc.
 //
 //
 
@@ -36,12 +36,12 @@ public:
         cocos2d::JniHelper::getEnv()->DeleteGlobalRef(m_nendFullBoard);
         cocos2d::JniHelper::getEnv()->DeleteGlobalRef(m_nendFullBoardLoader);
     }
-    
+
     void setNendFullBoard(JNIEnv* env, jobject nadFullBoard)
     {
         m_nendFullBoard = env->NewGlobalRef(nadFullBoard);
     }
-    
+
     jobject getNendFullBoard()
     {
         return m_nendFullBoard;
@@ -97,14 +97,14 @@ extern "C"
             nendFullBoardAd->onFullBoardAdLoaded(*nendFullBoardAd);
         }
     }
-    
+
     JNIEXPORT void JNICALL Java_net_nend_NendModule_NendFullBoardAd_onFailureJNICallback(JNIEnv* env, jobject thiz, jint fullBoardAdError, jlong thisPtr) {
         NendFullBoardAd *nendFullBoardAd = (NendFullBoardAd*)thisPtr;
         if (nendFullBoardAd->onFullBoardAdFailedToLoad) {
             nendFullBoardAd->onFullBoardAdFailedToLoad(*nendFullBoardAd, static_cast<NendFullBoardAd::ErrorType>(fullBoardAdError));
         }
     }
-    
+
     JNIEXPORT void JNICALL Java_net_nend_NendModule_NendFullBoardAd_onShowAdJNICallback(JNIEnv* env, jobject thiz, jobject nadFullBoard, jlong thisPtr) {
         NendFullBoardAd *nendFullBoardAd = (NendFullBoardAd*)thisPtr;
         if (nendFullBoardAd->onFullBoardAdShown) {

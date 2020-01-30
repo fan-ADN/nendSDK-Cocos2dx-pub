@@ -1,7 +1,7 @@
 //
 //  AndroidNativeJNI.cpp
 //
-//  Created by F@N Communications, Inc.
+//  Created by FAN Communications, Inc.
 //
 //
 
@@ -28,9 +28,9 @@ void AndroidNativeJNI::callJNI(const std::function<void (JNIEnv* env)> &callback
     JNIEnv *env;
     int status;
     bool isAttached = false;
-    
+
     status = jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
-    
+
     if(status < 0) {
         status = jvm->AttachCurrentThread(&env, NULL);
         if(status < 0) {
@@ -38,9 +38,9 @@ void AndroidNativeJNI::callJNI(const std::function<void (JNIEnv* env)> &callback
         }
         isAttached = true;
     }
-    
+
     callback(env);
-    
+
     if(isAttached) {
         jvm->DetachCurrentThread();
     }

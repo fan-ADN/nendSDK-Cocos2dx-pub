@@ -2,7 +2,7 @@
 //  NendUserFeature.mm
 //  NendModuleProj-mobile
 //
-//  Created by F@N Communications, Inc.
+//  Created by FAN Communications, Inc.
 //
 
 #include "NendUserFeature.h"
@@ -17,9 +17,9 @@ NS_NEND_BEGIN
 class NendUserFeature::Impl {
 public:
     Impl();
-    
+
     ~Impl();
-    
+
     NADUserFeature* userFeature_;
 };
 

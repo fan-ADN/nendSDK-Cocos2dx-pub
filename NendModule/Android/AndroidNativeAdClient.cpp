@@ -1,7 +1,7 @@
 //
 //  AndroidNativeAdClient.cpp
 //
-//  Created by F@N Communications, Inc.
+//  Created by FAN Communications, Inc.
 //
 //
 
@@ -21,13 +21,13 @@ std::vector <std::function<void (AndroidNativeAd* nativeAd, int* errorCode, std:
 std::function<void (AndroidNativeAd* nativeAd, int* errorCode, std::string errorMessage)> s_auto_reload_callback;
 
 AndroidNativeAdClient* AndroidNativeAdClient::create(const std::string apiKey, const std::string spotID){
-    
+
     auto ret = new (std::nothrow) AndroidNativeAdClient(apiKey, spotID);
-    
+
     if (ret) {
         ret->autorelease();
     }
-    
+
     return ret;
 }
 
@@ -37,16 +37,16 @@ AndroidNativeAdClient::AndroidNativeAdClient(const std::string apiKey, const std
 {
     std::function<void (JNIEnv* env)> callback_ = [=](JNIEnv* env) {
         jclass cls = env->FindClass(CLASS_NAME);
-        
+
         if (cls == NULL) {
             return;
         }
-        
+
         jmethodID cns = env->GetMethodID(cls, "<init>", "()V");
         if (cns == NULL) {
             return;
         }
-        
+
         jobject localObj = env->NewObject(cls, cns);
         if (localObj == NULL) {
             return;
@@ -55,7 +55,7 @@ AndroidNativeAdClient::AndroidNativeAdClient(const std::string apiKey, const std
         if (m_nativeClient == NULL) {
             return;
         }
-        
+
         jmethodID mid = env->GetMethodID(cls, METHOD_NAME_CREATE, "(Ljava/lang/String;Ljava/lang/String;)V");
         if (mid != NULL) {
             jstring stringApiKey = env->NewStringUTF(apiKey.c_str());
@@ -76,7 +76,7 @@ AndroidNativeAdClient::~AndroidNativeAdClient()
         }
     };
     this->callJNI(callback_);
-    
+
     callbacks.clear();
 }
 
@@ -98,7 +98,7 @@ void createNendNativeAd(JNIEnv* env, jobject nativeAdConnector, jobject activity
     const char *adImageUrl = NULL;
     const char *logoImageUrl = NULL;
     const char *actionButtonText = NULL;
-    
+
     jclass cls = env->FindClass("net/nend/android/internal/connectors/NendNativeAdConnector");
     if (cls == NULL) {
         return;
@@ -107,7 +107,7 @@ void createNendNativeAd(JNIEnv* env, jobject nativeAdConnector, jobject activity
     if (nativeAdConnector == NULL) {
         return;
     }
-    
+
     jmethodID mid_shortText = env->GetMethodID(cls, "getShortText", "()Ljava/lang/String;");
     jmethodID mid_longText = env->GetMethodID(cls, "getLongText", "()Ljava/lang/String;");
     jmethodID mid_promoName = env->GetMethodID(cls, "getPromotionName", "()Ljava/lang/String;");
@@ -143,7 +143,7 @@ void createNendNativeAd(JNIEnv* env, jobject nativeAdConnector, jobject activity
             env->ReleaseStringUTFChars(jstr, longText);
         }
     }
-    
+
     if (mid_promoName != NULL) {
         jstring jstr = (jstring)env->CallObjectMethod(globalConnector, mid_promoName);
         if (jstr != NULL) {
@@ -152,7 +152,7 @@ void createNendNativeAd(JNIEnv* env, jobject nativeAdConnector, jobject activity
             env->ReleaseStringUTFChars(jstr, promotionName);
         }
     }
-    
+
     if (mid_promoUrl != NULL) {
         jstring jstr = (jstring)env->CallObjectMethod(globalConnector, mid_promoUrl);
         if (jstr != NULL) {
@@ -161,7 +161,7 @@ void createNendNativeAd(JNIEnv* env, jobject nativeAdConnector, jobject activity
             env->ReleaseStringUTFChars(jstr, promotionUrl);
         }
     }
-    
+
     if (mid_adImgUrl != NULL) {
         jstring jstr = (jstring)env->CallObjectMethod(globalConnector, mid_adImgUrl);
         if (jstr != NULL) {
@@ -170,7 +170,7 @@ void createNendNativeAd(JNIEnv* env, jobject nativeAdConnector, jobject activity
             env->ReleaseStringUTFChars(jstr, adImageUrl);
         }
     }
-    
+
     if (mid_logoImgUrl != NULL) {
         jstring jstr = (jstring)env->CallObjectMethod(globalConnector, mid_logoImgUrl);
         if (jstr != NULL) {
@@ -179,7 +179,7 @@ void createNendNativeAd(JNIEnv* env, jobject nativeAdConnector, jobject activity
             env->ReleaseStringUTFChars(jstr, logoImageUrl);
         }
     }
-    
+
     if (mid_actionText != NULL) {
         jstring jstr = (jstring)env->CallObjectMethod(globalConnector, mid_actionText);
         if (jstr != NULL) {
@@ -188,31 +188,31 @@ void createNendNativeAd(JNIEnv* env, jobject nativeAdConnector, jobject activity
             env->ReleaseStringUTFChars(jstr, actionButtonText);
         }
     }
-    
+
     callback(nativeAd);
 }
 
 void loadAdFailed(JNIEnv* env, jobject errorObject, std::function<void (int errorInt, std::string message)> &callback)
 {
     const char *errorMessage = NULL;
-    
+
     jclass clsj = env->GetObjectClass(errorObject);
     jfieldID fId_errorCode = env->GetFieldID(clsj, "errorCode", "I");
     jfieldID fId_errorMessage = env->GetFieldID(clsj, "errorMessage", "Ljava/lang/String;");
-    
+
     jint errorCode = env->GetIntField(errorObject, fId_errorCode);
-    
+
     jstring messageObj = (jstring)env->GetObjectField(errorObject, fId_errorMessage);
     if (messageObj) {
         errorMessage = env->GetStringUTFChars(messageObj, NULL);
     }
-    
+
     if (callback) {
         callback(errorCode, std::string(errorMessage));
     }
-    
+
     NendLogger::logError(StringUtils::format("loadAd error: %d, description: %s", errorCode, errorMessage));
-    
+
     if (messageObj != NULL && errorMessage != NULL){
         env->ReleaseStringUTFChars(messageObj, errorMessage);
     }
@@ -225,7 +225,7 @@ void AndroidNativeAdClient::loadAd(const std::function<void (NendNativeAd*, int*
 
     std::function<void (JNIEnv* env)> callback_ = [=](JNIEnv* env) {
         jclass cls = env->FindClass(CLASS_NAME);
-        
+
         if (cls == NULL) {
             return;
         }
@@ -233,7 +233,7 @@ void AndroidNativeAdClient::loadAd(const std::function<void (NendNativeAd*, int*
         if (m_nativeClient == NULL) {
             return;
         }
-        
+
         jmethodID mid = env->GetMethodID(cls, METHOD_NAME_LOAD, "()V");
         if (mid != NULL) {
             env->CallVoidMethod(m_nativeClient, mid);
@@ -244,18 +244,18 @@ void AndroidNativeAdClient::loadAd(const std::function<void (NendNativeAd*, int*
 
 void AndroidNativeAdClient::enableAutoReload(const int interval, const std::function<void (NendNativeAd*, int*, std::string)> &callback){
     s_auto_reload_callback = callback;
-    
+
     std::function<void (JNIEnv* env)> callback_ = [=](JNIEnv* env) {
         jclass cls = env->FindClass(CLASS_NAME);
-        
+
         if (cls == NULL) {
             return;
         }
-        
+
         if (m_nativeClient == NULL) {
             return;
         }
-        
+
         jmethodID mid = env->GetMethodID(cls, METHOD_NAME_ENABLE_AUTO_LOAD, "(I)V");
         if (mid != NULL) {
             env->CallVoidMethod(m_nativeClient, mid, interval * 1000);
@@ -268,15 +268,15 @@ void AndroidNativeAdClient::disableAutoReload()
 {
     std::function<void (JNIEnv* env)> callback_ = [=](JNIEnv* env) {
         jclass cls = env->FindClass(CLASS_NAME);
-        
+
         if (cls == NULL) {
             return;
         }
-        
+
         if (m_nativeClient == NULL) {
             return;
         }
-        
+
         jmethodID mid = env->GetMethodID(cls, METHOD_NAME_DISABLE_AUTO_LOAD, "()V");
         if (mid != NULL) {
             env->CallVoidMethod(m_nativeClient, mid);
@@ -299,7 +299,7 @@ extern "C"
         }
         createNendNativeAd(env, nativeAdConnector, activity, callback_);
     }
-    
+
 	JNIEXPORT void JNICALL Java_net_nend_NendModule_NendNativeAdClient_loadAdFailedJNICallBack(JNIEnv* env, jobject thiz, jobject errorObject){
         std::function<void (int errorInt, std::string message)> callback_ = [=](int errorInt, std::string message) {
             auto callback = callbacks.front();
@@ -322,7 +322,7 @@ extern "C"
         }
         createNendNativeAd(env, nativeAdConnector, activity, callback_);
     }
-    
+
     JNIEXPORT void JNICALL Java_net_nend_NendModule_NendNativeAdClient_loadAdFailedForAutoreloadJNICallBack(JNIEnv* env, jobject thiz, jobject errorObject){
         std::function<void (int errorInt, std::string message)> callback_ = [=](int errorInt, std::string message) {
             s_auto_reload_callback(nullptr, &errorInt, message);

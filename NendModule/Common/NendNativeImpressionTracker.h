@@ -1,7 +1,7 @@
 //
 //  NendNativeImpressionTracker.h
 //
-//  Created by F@N Communications, Inc.
+//  Created by FAN Communications, Inc.
 //
 //
 

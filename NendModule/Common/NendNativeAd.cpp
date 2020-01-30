@@ -1,7 +1,7 @@
 //
 //  NendNativeAd.cpp
 //
-//  Created by F@N Communications, Inc.
+//  Created by FAN Communications, Inc.
 //
 //
 
@@ -67,7 +67,7 @@ void NendNativeAd::downloadImageData(const std::string imageUrl, const std::func
             img->initWithImageData(reinterpret_cast<unsigned char *>(&(buffer->front())), buffer->size());
 
             auto texture = Director::getInstance()->getTextureCache()->addImage(img, createCacheImageFileName(imageUrl));
-            
+
             callback(texture, "");
             CC_SAFE_RELEASE(img);
             NendLogger::logDebug(StringUtils::format("%s image download was successful. response code:%ld", response->getHttpRequest()->getTag(), response->getResponseCode()));
@@ -220,7 +220,7 @@ void NendNativeAd::deleteAllNendHttpHelper()
     if (httpHelpers.size() == 0) {
         return;
     }
-    
+
     for (auto it = httpHelpers.begin(); it != httpHelpers.end(); it++) {
         NendHttpHelper *helper = *it;
         helper->cancelCallback();

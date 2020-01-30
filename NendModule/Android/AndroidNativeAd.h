@@ -1,7 +1,7 @@
 //
 //  AndroidNativeAd.h
 //
-//  Created by F@N Communications, Inc.
+//  Created by FAN Communications, Inc.
 //
 //
 
@@ -21,7 +21,7 @@ namespace nend_module
             NEND_INFO_CLICK,
             NEND_IMPRESSION
         } NativeAdConnectorMethod;
-        
+
         class AndroidNativeAd : public NendNativeAd, public AndroidNativeJNI
         {
         private:

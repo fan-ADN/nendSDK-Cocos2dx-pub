@@ -1,7 +1,7 @@
 //
 //  AndroidNativeAd.cpp
 //
-//  Created by F@N Communications, Inc.
+//  Created by FAN Communications, Inc.
 //
 //
 
@@ -20,12 +20,12 @@ using namespace nend_module::internal;
 
 AndroidNativeAd* AndroidNativeAd::create() {
     auto ret = new (std::nothrow) AndroidNativeAd;
-    
+
     if (ret)
     {
         ret->autorelease();
     }
-    
+
     return ret;
 }
 
@@ -55,15 +55,15 @@ void AndroidNativeAd::callJniMethod(NativeAdConnectorMethod methodType)
     std::function<void (JNIEnv* env)> callback_ = [=](JNIEnv* env) {
         jmethodID mid;
         jclass cls = env->FindClass(CLASS_NAME);
-        
+
         if (cls == NULL) {
             return;
         }
-        
+
         if (m_connector == NULL || m_activity == NULL) {
             return;
         }
-        
+
         switch (methodType) {
             case NEND_AD_CLICK:
                 mid = env->GetMethodID(cls, METHOD_NAME_AD_CLICK, METHOD_ID_SIGNATURE);
@@ -110,11 +110,11 @@ std::string AndroidNativeAd::prTextForAdvertisingExplicitly(nend_module::NendNat
     std::function<void (JNIEnv* env)> callback_ = [=](JNIEnv* env) {
         jmethodID mid;
         jclass cls = env->FindClass(CLASS_NAME);
-        
+
         if (cls == NULL) {
             return;
         }
-        
+
         if (m_connector == NULL || m_activity == NULL) {
             return;
         }
@@ -132,6 +132,6 @@ std::string AndroidNativeAd::prTextForAdvertisingExplicitly(nend_module::NendNat
         return;
     };
     this->callJNI(callback_);
-    
+
     return m_advertisingExplicitly;
 }

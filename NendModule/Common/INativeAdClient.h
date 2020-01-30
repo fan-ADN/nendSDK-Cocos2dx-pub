@@ -1,7 +1,7 @@
 //
 //  INativeAdClient.h
 //
-//  Created by F@N Communications, Inc.
+//  Created by FAN Communications, Inc.
 //
 //
 
@@ -13,7 +13,7 @@
 namespace nend_module
 {
     namespace internal
-    {        
+    {
         class INativeAdClient : public cocos2d::Ref
         {
         protected:

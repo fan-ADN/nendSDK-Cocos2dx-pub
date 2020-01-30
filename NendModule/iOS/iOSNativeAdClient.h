@@ -1,7 +1,7 @@
 //
 //  iOSNativeAdClient.h
 //
-//  Created by F@N Communications, Inc.
+//  Created by FAN Communications, Inc.
 //
 //
 
@@ -20,7 +20,7 @@ namespace nend_module
         class iOSNativeAdClient : public INativeAdClient
         {
             class NativeInner;
-            
+
         public:
             static iOSNativeAdClient* create(std::string apiKey, std::string spotID);
             iOSNativeAdClient(std::string apiKey, std::string spotID);

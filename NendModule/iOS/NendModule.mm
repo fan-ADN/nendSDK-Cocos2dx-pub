@@ -1,7 +1,7 @@
 //
 //  NendModule.mm
 //
-//  Created by F@N Communications, Inc.
+//  Created by FAN Communications, Inc.
 //
 //
 
@@ -62,12 +62,12 @@ NendModule* NendModule::m_mySingleton = NULL;
 NSMutableDictionary *spotIdDictionary = nil;
 NendModule::NendModule()
 {
-    
+
 }
 
 #pragma mark -
 NendModule* NendModule::sharedNendModule(){
-    
+
     if (NULL == m_mySingleton) {
         //クラス未生成の場合は生成する
         m_mySingleton = new NendModule();
@@ -103,34 +103,34 @@ void load(char* spotID){
 
 #pragma mark - NADView生成、API Key, NendIDを設定
 void createNADViewInternal(char* apiKey, char* spotID, bool isAdjust, NADViewLayoutType layoutType, cocos2d::Point pos){
-    
+
     if (getHoldNADView(spotID)) {
         // すでにNADViewを生成済み
         return;
     }
-    
+
     NendModule::sharedNendModule();
-    
+
     //NADViewの生成
     NADView *nadView = [[NADView alloc] initWithIsAdjustAdSize:isAdjust];
-    
+
     //NADViewDelegateクラスを生成
     nadView.delegate = (id<NADViewDelegate>)[[NadViewDelegate alloc] init];
-    
+
     AppController* app = [UIApplication sharedApplication].delegate;
     RootViewController* viewController = app.viewController;
     [viewController.view addSubview:nadView];
-    
+
     NSString *nendIDString = [NSString stringWithCString:apiKey encoding:NSUTF8StringEncoding];
     NSString *spotIDString = [NSString stringWithCString:spotID encoding:NSUTF8StringEncoding];
     [nadView setNendID:nendIDString spotID:spotIDString];
-    
+
     if (!spotIdDictionary) {
         spotIdDictionary = [[NSMutableDictionary alloc] init];
     }
     NSDictionary *holdDictionary = @{@"nadView": nadView, @"layoutType": @(layoutType), @"position": [NSValue valueWithCGPoint:CGPointMake(pos.x, pos.y)]};
     [spotIdDictionary setObject:holdDictionary forKey:spotIDString];
-    
+
     load(spotID);
 }
 
@@ -146,23 +146,23 @@ void NendModule::createNADView(char* apiKey, char* spotID, cocos2d::Point pos, b
 
 #pragma mark - NADView生成、画面上部、API Key, NendIDを設定
 void NendModule::createNADViewTop(char *apiKey, char *spotID){
-    
+
     NendModule::createNADViewTop(apiKey, spotID, false);
 }
 
 void NendModule::createNADViewTop(char *apiKey, char *spotID, bool isAdjust){
-    
+
     createNADViewInternal(apiKey, spotID, isAdjust, TOP, cocos2d::Point(0,0));
 }
 
 #pragma mark - NADView生成、画面下部、API Key, NendIDを設定
 void NendModule::createNADViewBottom(char *apiKey, char *spotID){
-    
+
     NendModule::createNADViewBottom(apiKey, spotID, false);
 }
 
 void NendModule::createNADViewBottom(char *apiKey, char *spotID, bool isAdjust){
-    
+
     createNADViewInternal(apiKey, spotID, isAdjust, BOTTOM, cocos2d::Point(0,0));
 }
 
@@ -177,10 +177,10 @@ void setPositionTop(char *spotID){
     auto view = cocos2d::Director::getInstance()->getOpenGLView();
     UIView *baseView = (UIView *) view->getEAGLView();
     CGRect mainViewRect = baseView.bounds;
-    
+
     //NADViewの位置を変更
     [holdNADView setFrame:CGRectMake((mainViewRect.size.width - holdNADView.frame.size.width) /2, 0, holdNADView.frame.size.width, holdNADView.frame.size.height)];
-    
+
 }
 
 #pragma mark - setPositionButtom
@@ -193,9 +193,9 @@ void setPositionButtom(char *spotID){
     auto view = cocos2d::Director::getInstance()->getOpenGLView();
     UIView *baseView = (UIView *) view->getEAGLView();
     CGRect mainViewRect = baseView.bounds;
-    
+
     [holdNADView setFrame:CGRectMake((mainViewRect.size.width - holdNADView.frame.size.width) /2, mainViewRect.size.height - holdNADView.frame.size.height, holdNADView.frame.size.width, holdNADView.frame.size.height)];
-    
+
 }
 
 #pragma mark - setPositionUser
@@ -208,35 +208,35 @@ void setPositionUser(char *spotID) {
     //cocos2d-x上の座標をiOSの座標に変換
     //cocos2d-xで管理するwindowサイズを取得
     cocos2d::Size size = Director::getInstance()->getWinSize();
-    
+
     //座標を割合で取得
     CGPoint holdPoint = getHoldPoint(spotID);
     cocos2d::Point pointRate;
     pointRate.x = (holdPoint.x / size.width);
     pointRate.y = (holdPoint.y / size.height);
-    
+
     //iOSで管理するViewのサイズを取得
     auto view = cocos2d::Director::getInstance()->getOpenGLView();
     UIView *baseView = (UIView *) view->getEAGLView();
     CGRect mainViewRect = baseView.bounds;
-    
+
     //高さをiOS基準に変換する
     CGPoint newPosition;
     newPosition.x = mainViewRect.size.width * pointRate.x;
     newPosition.y = mainViewRect.size.height - (mainViewRect.size.height * pointRate.y);
-    
+
     //座標の設定
     [holdNADView setFrame:CGRectMake(newPosition.x, newPosition.y, holdNADView.frame.size.width, holdNADView.frame.size.height)];
-    
+
 }
 
 #pragma mark - NADViewの表示位置を調整する
 void NendModule::layoutNADView(char *spotID) {
-    
+
     NSString *nsstrDst = [NSString stringWithUTF8String: spotID];
     NSDictionary *nadViewDictionary = spotIdDictionary[nsstrDst];
     NSInteger layoutValue = [nadViewDictionary[@"layoutType"] integerValue];
-    
+
     switch (layoutValue) {
         case TOP:
             setPositionTop(spotID);
@@ -351,7 +351,7 @@ void NendModule::releaseNADView(char* spotID)
         [holdNADView removeFromSuperview];
         [holdNADView release];
         holdNADView = nil;
-        
+
         if (spotIdDictionary) {
             NSString *nsstrDst = [NSString stringWithUTF8String: spotID];
             [spotIdDictionary removeObjectForKey:nsstrDst];

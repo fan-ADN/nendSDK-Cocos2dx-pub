@@ -2,7 +2,7 @@
 //  NendRewardedVideoAd.m
 //  NendModuleProj
 //
-//  Created by F@N Communications, Inc.
+//  Created by FAN Communications, Inc.
 //
 //
 
@@ -131,7 +131,7 @@ public:
     RewardedVideoAdDelegate* getRewardedVideoAdDelegate() const {
         return rewardedVideoAdDelegate_;
     };
-    
+
 private:
     NADRewardedVideo* rewardedVideoAd_;
     RewardedVideoAdDelegate* rewardedVideoAdDelegate_;
@@ -145,11 +145,11 @@ RewardedVideoAd::Impl::Impl(const std::string& spotId, const std::string& apiKey
 
 RewardedVideoAd::Impl::~Impl() {
     CCLOG("Destruct RewardedVideoAd::Impl %p", this);
-    
+
     rewardedVideoAd_.delegate = nil;
     [rewardedVideoAd_ release];
     [rewardedVideoAdDelegate_ release];
-    
+
     rewardedVideoAd_ = nullptr;
     rewardedVideoAdDelegate_ = nullptr;
 }
@@ -158,7 +158,7 @@ RewardedVideoAd::Impl::~Impl() {
 
 RewardedVideoAd::RewardedVideoAd(const std::string& spotId, const std::string& apiKey) : VideoAd<RewardedVideoAd>(), onRewarded_(nullptr) {
     impl_.reset(new RewardedVideoAd::Impl(spotId, apiKey));
-    
+
     impl_->getRewardedVideoAdDelegate().callback = ^(Event event) {
         switch (event) {
             case Event::LOADED:

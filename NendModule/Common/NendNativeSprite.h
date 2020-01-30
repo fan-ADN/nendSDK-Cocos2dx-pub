@@ -1,7 +1,7 @@
 //
 //  NendNativeSprite.h
 //
-//  Created by F@N Communications, Inc.
+//  Created by FAN Communications, Inc.
 //
 //
 
@@ -17,7 +17,7 @@ namespace nend_module
     public:
         NendNativeSprite();
         ~NendNativeSprite();
-        
+
         static NendNativeSprite *create();
     };
 }

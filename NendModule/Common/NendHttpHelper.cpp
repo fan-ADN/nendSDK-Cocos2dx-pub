@@ -1,7 +1,7 @@
 //
 //  NendHttpHelper.cpp
 //
-//  Created by F@N Communications, Inc.
+//  Created by FAN Communications, Inc.
 //
 //
 
@@ -15,11 +15,11 @@ using namespace nend_module::internal;
 
 NendHttpHelper* NendHttpHelper::create(){
     auto ret = new (std::nothrow) NendHttpHelper;
-    
+
     if (ret) {
         ret->autorelease();
     }
-    
+
     return ret;
 }
 
@@ -61,4 +61,3 @@ void NendHttpHelper::sendGetRequest(std::string url, std::string tag) {
     client->send(m_request);
     m_request->release();
 }
-

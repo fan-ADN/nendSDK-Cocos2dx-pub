@@ -1,7 +1,7 @@
 //
 //  NendFullBoardAd.mm
 //
-//  Created by F@N Communications, Inc.
+//  Created by FAN Communications, Inc.
 //
 //
 
@@ -26,7 +26,7 @@ private:
     NADFullBoardLoader *m_nadFullBoardLoader;
     NADFullBoard *m_nadFullBoard;
     NadFullBoardDelegate *m_Delegate;
-    
+
 public:
     NendFullBoardAdInner(NendFullBoardAd *thisPtr, NSString *spotId, NSString *apiKey)
     {
@@ -49,16 +49,16 @@ public:
             }
         };
     }
-    
+
     virtual ~NendFullBoardAdInner()
     {
-        
+
         NendLogger::logDebug(__FUNCTION__);
         [m_Delegate release];
         [m_nadFullBoard release];
         [m_nadFullBoardLoader release];
     }
-    
+
     void setNADFullBoard(NADFullBoard *nadFullBoard)
     {
         if (m_nadFullBoard) {
@@ -68,7 +68,7 @@ public:
         m_nadFullBoard.delegate = m_Delegate;
         [m_nadFullBoard retain];
     }
-    
+
     NADFullBoard *getNADFullBoard()
     {
         return m_nadFullBoard;

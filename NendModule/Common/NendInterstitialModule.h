@@ -1,7 +1,7 @@
 //
 //  NendInterstitialModule.h
 //
-//  Created by F@N Communications, Inc.
+//  Created by FAN Communications, Inc.
 //
 //
 
@@ -62,7 +62,7 @@ private:
     NendInterstitialModule();
     // シングルトン用クラス保持
     static NendInterstitialModule* m_mySingleton;
-    
+
 public:
     //クラス取得
     static NendInterstitialModule* sharedNendInterstitialModule();
